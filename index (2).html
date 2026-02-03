@@ -164,6 +164,19 @@
 <div class="footer" style="text-align:center;color:#666;">
     <p>七年级六班送别张老师网站</p>
 </div>
+    <!-- ===== 管理员后台 ===== -->
+<div class="admin-panel" id="adminPanel">
+    <h2>管理员后台</h2>
+    <p>请输入管理员密码：</p>
+    <input type="password" id="adminPassword" placeholder="输入密码">
+    <button onclick="loginAdmin()">登录</button>
+
+    <div id="adminControls" style="display:none; margin-top:20px;">
+        <h3>管理留言</h3>
+        <div id="adminMessages"></div>
+    </div>
+</div>
+
 
 <script>
 // ⚠️ 部署后一定要换成 Render 给你的地址，例如：
@@ -250,4 +263,5 @@ document.addEventListener("DOMContentLoaded", loadMessages);
 
 </body>
 </html>
+
 
