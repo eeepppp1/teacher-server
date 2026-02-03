@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>送别张慧俐老师 | 七年级六班</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f7fd;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 30px 0;
+            background: linear-gradient(to right, #9c27b0, #673ab7);
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+        }
+        
+        .header p {
+            margin: 10px 0 0;
+            font-size: 1.2rem;
+        }
+        
+        .content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .teacher-info {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .teacher-name {
+            font-size: 2rem;
+            color: #9c27b0;
+            margin: 10px 0;
+        }
+        
+        .thank-you {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 5px solid #9c27b0;
+        }
+        
+        .message-form {
+            background-color: #f0f7ff;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            font-family: inherit;
+        }
+        
+        button {
+            background-color: #9c27b0;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        button:hover {
+            background-color: #7b1fa2;
+        }
+        
+        .messages {
+            margin-top: 30px;
+        }
+        
+        .message-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            border-left: 4px solid #9c27b0;
+        }
+        
+        .message-author {
+            font-weight: bold;
+            color: #9c27b0;
+            margin-bottom: 5px;
+        }
+        
+        .message-content {
+            margin: 10px 0;
+        }
+        
+        .message-time {
+            font-size: 0.9rem;
+            color: #888;
+            text-align: right;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            border-top: 1px solid #eee;
+            margin-top: 30px;
+        }
+        
+        .no-messages {
+            text-align: center;
+            color: #888;
+            padding: 30px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>送别实习老师张慧俐</h1>
+        <p>七年级六班全体同学</p>
+    </div>
+    
+    <div class="content">
+        <div class="teacher-info">
+            <h2 class="teacher-name">张慧俐 老师</h2>
+            <p>语文实习老师 </p>
+            <p>实习时间：2025年9月 - 2026年1月</p>
+        </div>
+        
+        <div class="thank-you">
+            <h2>感谢您！</h2>
+            <p>亲爱的张老师：</p>
+            <p>感谢您这一学期以来对我们的辛勤教导。您的语文课生动有趣，让我们感受到了中华文化的魅力。</p>
+            <p>在期末考试前，您耐心地为我们解答问题，牺牲自己的休息时间。我们非常感激！</p>
+            <p>虽然您的实习期结束了，但您的教诲我们会永远记住。祝您前程似锦，未来一切顺利！</p>
+            <p style="text-align: right; margin-top: 20px;">—— 七年级六班全体同学</p>
+        </div>
+        
+        <div class="message-form">
+            <h2>写下您的祝福</h2>
+            <p>留下您对张老师的祝福和感谢：</p>
+            
+            <form id="messageForm">
+                <label for="studentName">您的姓名：</label>
+                <input type="text" id="studentName" placeholder="请输入您的姓名" required>
+                
+                <label for="message">祝福内容：</label>
+                <textarea id="message" rows="4" placeholder="写下您想对张老师说的话..." required></textarea>
+                
+                <button type="submit">提交祝福</button>
+            </form>
+        </div>
+        
+        <div class="messages">
+            <h2>同学们的祝福</h2>
+            <div id="messagesContainer">
+                <div class="no-messages">还没有留言，成为第一个送上祝福的同学吧！</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>七年级六班送别张老师网站</p>
+        <p>2026年1月</p>
+    </div>
+
+    <script>
+const API_URL = "http://localhost:3000";
+
+let messages = [];
+
+// 从服务器加载留言
+async function loadMessages() {
+    const res = await fetch(API_URL + "/get-messages");
+    messages = await res.json();
+    displayMessages();
+}
+
+function displayMessages() {
+    const container = document.getElementById('messagesContainer');
+
+    if (messages.length === 0) {
+        container.innerHTML = '<div class="no-messages">还没有留言，成为第一个送上祝福的同学吧！</div>';
+        return;
+    }
+
+    let html = '';
+    messages.reverse().forEach(msg => {
+        html += `
+            <div class="message-card">
+                <div class="message-author">${msg.name}</div>
+                <div class="message-content">${msg.message}</div>
+                <div class="message-time">${msg.time}</div>
+            </div>
+        `;
+    });
+
+    container.innerHTML = html;
+}
+
+// 提交新留言
+document.getElementById('messageForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById('studentName').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    if (!name || !message) {
+        alert('请填写姓名和祝福内容！');
+        return;
+    }
+
+    const newMessage = {
+        name: name,
+        message: message,
+        time: new Date().toLocaleDateString('zh-CN') + ' ' +
+              new Date().toLocaleTimeString('zh-CN', {hour:'2-digit', minute:'2-digit'})
+    };
+
+    await fetch(API_URL + "/add-message", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newMessage)
+    });
+
+    document.getElementById('studentName').value = '';
+    document.getElementById('message').value = '';
+
+    loadMessages();
+    alert("祝福提交成功！");
+});
+
+document.addEventListener('DOMContentLoaded', loadMessages);
+</script>
+
+         
+ function displayMessages() {
+            const container = document.getElementById('messagesContainer');
+            
+           if (messages.length === 0) {
+                container.innerHTML = '<div class="no-messages">还没有留言，成为第一个送上祝福的同学吧！</div>';
+                return;
+            }
+            
+            // 按时间倒序排列（最新的在前）
+            const sortedMessages = [...messages].reverse();
+            
+            let html = '';
+            sortedMessages.forEach(msg => {
+                html += `
+                    <div class="message-card">
+                        <div class="message-author">${msg.name}</div>
+                        <div class="message-content">${msg.message}</div>
+                        <div class="message-time">${msg.time}</div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        // 提交新留言
+        document.getElementById('messageForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('studentName').value.trim();
+            const message = document.getElementById('message').value.trim();
+            
+            if (!name || !message) {
+                alert('请填写姓名和祝福内容！');
+                return;
+            }
+            
+            // 创建新留言对象
+            const newMessage = {
+                name: name,
+                message: message,
+                time: new Date().toLocaleDateString('zh-CN') + ' ' + new Date().toLocaleTimeString('zh-CN', {hour: '2-digit', minute:'2-digit'})
+            };
+            
+            // 添加到留言数组
+            messages.push(newMessage);
+            
+            // 保存到本地存储
+            localStorage.setItem('zhangTeacherMessages', JSON.stringify(messages));
+            
+            // 清空表单
+            document.getElementById('studentName').value = '';
+            document.getElementById('message').value = '';
+            
+            // 重新显示留言
+            displayMessages();
+            
+            // 显示成功消息
+            alert('祝福提交成功！谢谢您的留言。');
+        });
+        
+        // 页面加载时显示留言
+        document.addEventListener('DOMContentLoaded', displayMessages);
+        
+        // 添加几个示例留言按钮（可选）
+        function addSampleMessages() {
+            const sampleMessages = [
+                {name: "王小明", message: "张老师，您的语文课很有趣，我学到了很多！", time: "刚刚"},
+                {name: "李小红", message: "谢谢张老师耐心的指导，祝您未来顺利！", time: "刚刚"}
+            ];
+            
+            if (messages.length === 0) {
+                messages = sampleMessages;
+                localStorage.setItem('zhangTeacherMessages', JSON.stringify(messages));
+                displayMessages();
+            }
+        }
+        
+        // 可以选择是否添加示例留言，这里先注释掉
+        // addSampleMessages();
+    </script>
+</body>
+</html>
