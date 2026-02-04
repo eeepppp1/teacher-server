@@ -8,7 +8,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // 🔹 这里换成你的 MongoDB 连接字符串
-const MONGO_URI = "mongodb+srv://3803397120_db_user:<db_password>@cluster0.qp3cujl.mongodb.net/?appName=Cluster0";
+const MONGO_URI = process.env.MONGO_URI;
 
 mongoose.connect(MONGO_URI)
   .then(() => console.log("MongoDB 连接成功"))
